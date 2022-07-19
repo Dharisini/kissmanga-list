@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import "./body.css";
 
 function Body() {
   // current page
@@ -39,29 +40,50 @@ function Body() {
     navigate(`/manga/${id}`);
   });
   return (
+<<<<<<< HEAD:src/components/Body.js
     <div className="body">
       <h1> KissManga-List </h1>
       <h1> helo</h1>
+=======
+    <div>
+      <div class="topnav">
+        <a class="active" href="#logo">
+          Logo
+        </a>
+        <h1>App Title</h1>
+        <div class="search-container">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search"></input>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+>>>>>>> 8b5877128bd55784622760f60888bbbeda973a52:src/components/Body/body.js
 
-      <button
-        onClick={() => {
-          setCurrentPage(currentPage + 1);
-        }}
-      >
-        {" "}
-        Next Page
-      </button>
-      <button
-        onClick={() => {
-          setCurrentPage(currentPage - 1);
-        }}
-      >
-        {" "}
-        Previous Page
-      </button>
+      <div className="navigation-buttons">
+        <button
+          className="previous-button"
+          onClick={() => {
+            setCurrentPage(currentPage - 1);
+          }}
+        >
+          {" "}
+          Previous Page
+        </button>
+        <button
+          className="next-button"
+          onClick={() => {
+            setCurrentPage(currentPage + 1);
+          }}
+        >
+          {" "}
+          Next Page
+        </button>
+      </div>
 
       {mangaList.map((manga, index) => {
         return (
+<<<<<<< HEAD:src/components/Body.js
           <img
             onClick={() => goToPage(manga.mal_id)}
             key={index}
@@ -69,6 +91,10 @@ function Body() {
           />
         );
         //pass the id of the image to the data.data.mal_id
+=======
+          <img className="style" key={index} src={manga.images.jpg.image_url} />
+        );
+>>>>>>> 8b5877128bd55784622760f60888bbbeda973a52:src/components/Body/body.js
       })}
     </div>
   );
