@@ -35,7 +35,18 @@ function Body() {
   // console.log(mangaList);
   return (
     <div>
-      <h1>Trying something out</h1>
+      <div class="topnav">
+        <a class="active" href="#logo">
+          Logo
+        </a>
+        <h1>App Title</h1>
+        <div class="search-container">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search"></input>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
 
       <div className="navigation-buttons">
         <button
