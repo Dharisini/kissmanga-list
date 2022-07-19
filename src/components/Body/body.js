@@ -40,11 +40,6 @@ function Body() {
     navigate(`/manga/${id}`);
   });
   return (
-<<<<<<< HEAD:src/components/Body.js
-    <div className="body">
-      <h1> KissManga-List </h1>
-      <h1> helo</h1>
-=======
     <div>
       <div class="topnav">
         <a class="active" href="#logo">
@@ -58,7 +53,6 @@ function Body() {
           </form>
         </div>
       </div>
->>>>>>> 8b5877128bd55784622760f60888bbbeda973a52:src/components/Body/body.js
 
       <div className="navigation-buttons">
         <button
@@ -83,18 +77,14 @@ function Body() {
 
       {mangaList.map((manga, index) => {
         return (
-<<<<<<< HEAD:src/components/Body.js
           <img
+            className="style"
             onClick={() => goToPage(manga.mal_id)}
             key={index}
             src={manga.images.jpg.image_url}
           />
         );
         //pass the id of the image to the data.data.mal_id
-=======
-          <img className="style" key={index} src={manga.images.jpg.image_url} />
-        );
->>>>>>> 8b5877128bd55784622760f60888bbbeda973a52:src/components/Body/body.js
       })}
     </div>
   );
