@@ -34,7 +34,8 @@ function Body() {
   // console.log(mangaList);
   return (
     <div className="body">
-      <h1> trying something out </h1>
+      <h1> KissManga-List </h1>
+      <h1> helo</h1>
 
       <button
         onClick={() => {
