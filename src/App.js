@@ -6,15 +6,10 @@ import Page from "./page/Page";
 
 function App() {
   return (
-    <div className="App">
-      <Body />
-    </div>
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/manga/:id" element={<Page />} />
-    //     <Route path="/" element={<Body />}></Route>
-    //   </Routes>
-    // </BrowserRouter>
+    <Routes>
+      <Route path="/manga/:id" element={<Page />} />
+      <Route path="/" element={<Body />}></Route>
+    </Routes>
   );
 }
 

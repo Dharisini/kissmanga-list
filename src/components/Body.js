@@ -1,11 +1,14 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Body() {
   // current page
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
   const [mangaList, setMangaList] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMangas();
@@ -32,6 +35,9 @@ function Body() {
   //   });
   // };
   // console.log(mangaList);
+  const goToPage = React.useCallback((id) => {
+    navigate(`/manga/${id}`);
+  });
   return (
     <div className="body">
       <h1> KissManga-List </h1>
@@ -55,7 +61,14 @@ function Body() {
       </button>
 
       {mangaList.map((manga, index) => {
-        return <img key={index} src={manga.images.jpg.image_url} />;
+        return (
+          <img
+            onClick={() => goToPage(manga.mal_id)}
+            key={index}
+            src={manga.images.jpg.image_url}
+          />
+        );
+        //pass the id of the image to the data.data.mal_id
       })}
     </div>
   );
