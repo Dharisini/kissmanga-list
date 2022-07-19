@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./body.css";
 
 function Body() {
   // current page
@@ -33,28 +34,45 @@ function Body() {
   // };
   // console.log(mangaList);
   return (
-    <div className="body">
-      <h1> trying something out </h1>
+    <div>
+      <div class="topnav">
+        <a class="active" href="#logo">
+          Logo
+        </a>
+        <h1>App Title</h1>
+        <div class="search-container">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search"></input>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
 
-      <button
-        onClick={() => {
-          setCurrentPage(currentPage + 1);
-        }}
-      >
-        {" "}
-        Next Page
-      </button>
-      <button
-        onClick={() => {
-          setCurrentPage(currentPage - 1);
-        }}
-      >
-        {" "}
-        Previous Page
-      </button>
+      <div className="navigation-buttons">
+        <button
+          className="previous-button"
+          onClick={() => {
+            setCurrentPage(currentPage - 1);
+          }}
+        >
+          {" "}
+          Previous Page
+        </button>
+        <button
+          className="next-button"
+          onClick={() => {
+            setCurrentPage(currentPage + 1);
+          }}
+        >
+          {" "}
+          Next Page
+        </button>
+      </div>
 
       {mangaList.map((manga, index) => {
-        return <img key={index} src={manga.images.jpg.image_url} />;
+        return (
+          <img className="style" key={index} src={manga.images.jpg.image_url} />
+        );
       })}
     </div>
   );
