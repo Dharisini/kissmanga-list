@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
 
 function Body() {
@@ -7,6 +8,8 @@ function Body() {
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
   const [mangaList, setMangaList] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMangas();
@@ -33,6 +36,9 @@ function Body() {
   //   });
   // };
   // console.log(mangaList);
+  const goToPage = React.useCallback((id) => {
+    navigate(`/manga/${id}`);
+  });
   return (
     <div>
       <div class="topnav">
@@ -71,8 +77,14 @@ function Body() {
 
       {mangaList.map((manga, index) => {
         return (
-          <img className="style" key={index} src={manga.images.jpg.image_url} />
+          <img
+            className="style"
+            onClick={() => goToPage(manga.mal_id)}
+            key={index}
+            src={manga.images.jpg.image_url}
+          />
         );
+        //pass the id of the image to the data.data.mal_id
       })}
     </div>
   );
