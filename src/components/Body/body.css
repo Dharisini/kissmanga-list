@@ -1,0 +1,21 @@
+.style {
+  margin: 50px;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5%;
+}
+
+.previous-button {
+  width: 100px;
+  font-size: 20px;
+  font-family: "Edu QLD Beginner", cursive;
+}
+
+.next-button {
+  width: 100px;
+  font-size: 20px;
+  font-family: "Edu QLD Beginner", cursive;
+}
