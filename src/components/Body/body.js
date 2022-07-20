@@ -8,6 +8,8 @@ function Body() {
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
   const [mangaList, setMangaList] = useState([]);
+  const [last_visible_page, setLastVisiblePage] = useState();
+
   const navigate = useNavigate();
 
   const { searchTitle } = useParams();
@@ -25,21 +27,25 @@ function Body() {
   const getMangas = async () => {
     try {
       const resp = await Axios.get("https://api.jikan.moe/v4/manga", {
-        params: { page: currentPage },
+        params: { page: currentPage, q: searchInput },
       });
       setMangaList(resp.data.data);
-      //   console.log(mangaList);
+      setLastVisiblePage(resp.data.pagination.last_visible_page);
     } catch (err) {
       // Handle Error Here
       console.error(err);
     }
   };
-  const ref = useRef();
+
+  //this handles the search functionality
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+  };
 
   const fetchmanga = async () => {
     try {
       const resp = await Axios.get(
-        `https://api.jikan.moe/v4/manga?q=${searchTitle}&sfw`
+        `https://api.jikan.moe/v4/manga?q=${searchInput}&sfw=Y`
       );
       console.log(resp);
       setMangaList(resp.data.data);
@@ -71,7 +77,9 @@ function Body() {
             <input type="text" placeholder="Search.." name="search" ref={ref}>
               {/* search function  */}
             </input>
-            <button onClick={goSearch}>Submit</button>
+            <button onClick={fetchmanga} onKeyDown>
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -89,7 +97,11 @@ function Body() {
         <button
           className="next-button"
           onClick={() => {
-            setCurrentPage(currentPage + 1);
+            if (currentPage !== last_visible_page) {
+              setCurrentPage(currentPage + 1);
+            } else {
+              alert("This is the last page!");
+            }
           }}
         >
           {" "}
