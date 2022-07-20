@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export default function Page() {
   const { id } = useParams();
-  //   console.log(`shit=${id}`);
+
   //get profile info
   const [profile, setProfile] = useState([]);
 
@@ -21,7 +21,7 @@ export default function Page() {
         console.error(err);
       }
     };
-    // console.log("useEffect");
+
     getProfile();
   }, [id]);
   console.log(profile);

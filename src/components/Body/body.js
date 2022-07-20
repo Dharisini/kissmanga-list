@@ -11,6 +11,9 @@ function Body() {
 
   const navigate = useNavigate();
 
+  //search input stuff
+  const [searchInput, setSearchInput] = useState("");
+
   useEffect(() => {
     getMangas();
   }, [currentPage]);
@@ -28,17 +31,21 @@ function Body() {
     }
   };
 
-  // const getTitle = () => {
-  //   Axios.get('https://api.jikan.moe/v4/manga',{ params: {page : currentPage } }
-  //   ).then((response) => {
-  //     // console.log(response.data);
-  //     settitle(response?.data);
-  //   });
-  // };
-  // console.log(mangaList);
+  //this handles the search functionality
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+  };
+
+  const fetchmanga = () => {
+    Axios.get(`https://api.jikan.moe/v4/manga?q=${searchInput}`).then((resp) =>
+      console.log(resp)
+    );
+  };
+
   const goToPage = React.useCallback((id) => {
     navigate(`/manga/${id}`);
   });
+
   return (
     <div>
       <div class="topnav">
@@ -47,9 +54,16 @@ function Body() {
         </a>
         <h1>App Title</h1>
         <div class="search-container">
-          <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search"></input>
-            <button type="submit">Submit</button>
+          <form>
+            <input
+              type="text"
+              placeholder="Search.."
+              name="search"
+              onChange={(e) => searchItems(e.target.value)}
+            >
+              {/* search function  */}
+            </input>
+            <button onClick={() => fetchmanga()}>Submit</button>
           </form>
         </div>
       </div>
@@ -84,7 +98,6 @@ function Body() {
             src={manga.images.jpg.image_url}
           />
         );
-        //pass the id of the image to the data.data.mal_id
       })}
     </div>
   );
