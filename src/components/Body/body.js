@@ -36,10 +36,22 @@ function Body() {
     setSearchInput(searchValue);
   };
 
-  const fetchmanga = () => {
-    Axios.get(`https://api.jikan.moe/v4/manga?q=${searchInput}`).then((resp) =>
-      console.log(resp)
-    );
+  const test = () => {
+    console.log("hi");
+  };
+
+  const fetchmanga = async () => {
+    try {
+      const resp = await Axios.get(
+        `https://api.jikan.moe/v4/manga?q=${searchInput}&sfw`
+      );
+      console.log(resp);
+      setMangaList(resp.data.data);
+      //   console.log(mangaList);
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
   };
 
   const goToPage = React.useCallback((id) => {
@@ -54,7 +66,7 @@ function Body() {
         </a>
         <h1>App Title</h1>
         <div class="search-container">
-          <form>
+          <div>
             <input
               type="text"
               placeholder="Search.."
@@ -63,8 +75,8 @@ function Body() {
             >
               {/* search function  */}
             </input>
-            <button onClick={() => fetchmanga()}>Submit</button>
-          </form>
+            <button onClick={fetchmanga}>Submit</button>
+          </div>
         </div>
       </div>
 
