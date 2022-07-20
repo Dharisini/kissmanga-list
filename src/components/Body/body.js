@@ -59,12 +59,12 @@ function Body() {
   });
 
   return (
-    <div>
+    <div className="main">
       <div class="topnav">
         <a class="active" href="#logo">
           Logo
         </a>
-        <h1>App Title</h1>
+        <h1 className="title">App Title</h1>
         <div class="search-container">
           <div>
             <input
