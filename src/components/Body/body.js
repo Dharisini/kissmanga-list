@@ -1,6 +1,6 @@
 import Axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import "./body.css";
 
 function Body() {
@@ -8,15 +8,19 @@ function Body() {
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
   const [mangaList, setMangaList] = useState([]);
-
   const navigate = useNavigate();
 
-  //search input stuff
-  const [searchInput, setSearchInput] = useState("");
+  const { searchTitle } = useParams();
 
   useEffect(() => {
-    getMangas();
-  }, [currentPage]);
+    setMangaList([]);
+    if (!searchTitle) {
+      getMangas();
+    } else {
+      fetchmanga();
+    }
+  }, [currentPage, searchTitle]);
+
   //resp is response
   const getMangas = async () => {
     try {
@@ -30,20 +34,12 @@ function Body() {
       console.error(err);
     }
   };
-
-  //this handles the search functionality
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-  };
-
-  const test = () => {
-    console.log("hi");
-  };
+  const ref = useRef();
 
   const fetchmanga = async () => {
     try {
       const resp = await Axios.get(
-        `https://api.jikan.moe/v4/manga?q=${searchInput}&sfw`
+        `https://api.jikan.moe/v4/manga?q=${searchTitle}&sfw`
       );
       console.log(resp);
       setMangaList(resp.data.data);
@@ -58,24 +54,24 @@ function Body() {
     navigate(`/manga/${id}`);
   });
 
+  const goSearch = () => {
+    if (!ref.current?.value) return;
+    navigate(`/search/${ref.current.value}`);
+  };
+
   return (
     <div className="main">
-      <div class="topnav">
-        <a class="active" href="#logo">
+      <div className="topnav">
+        <a className="active" href="#logo">
           Logo
         </a>
         <h1 className="title">App Title</h1>
-        <div class="search-container">
+        <div className="search-container">
           <div>
-            <input
-              type="text"
-              placeholder="Search.."
-              name="search"
-              onChange={(e) => searchItems(e.target.value)}
-            >
+            <input type="text" placeholder="Search.." name="search" ref={ref}>
               {/* search function  */}
             </input>
-            <button onClick={fetchmanga}>Submit</button>
+            <button onClick={goSearch}>Submit</button>
           </div>
         </div>
       </div>
