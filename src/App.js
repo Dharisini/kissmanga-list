@@ -1,10 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
-
-// import Body from "./components/Body";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Page from "./page/Page";
-
+import Page from "./components/page/page.js";
 import Body from "./components/Body/body.js";
 // import Header from "./components/Header/header.js";
 
