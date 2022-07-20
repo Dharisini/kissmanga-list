@@ -8,6 +8,7 @@ function Body() {
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
   const [mangaList, setMangaList] = useState([]);
+  const [last_visible_page, setLastVisiblePage] = useState();
 
   const navigate = useNavigate();
 
@@ -21,10 +22,10 @@ function Body() {
   const getMangas = async () => {
     try {
       const resp = await Axios.get("https://api.jikan.moe/v4/manga", {
-        params: { page: currentPage },
+        params: { page: currentPage, q: searchInput },
       });
       setMangaList(resp.data.data);
-      //   console.log(mangaList);
+      setLastVisiblePage(resp.data.pagination.last_visible_page);
     } catch (err) {
       // Handle Error Here
       console.error(err);
@@ -36,14 +37,10 @@ function Body() {
     setSearchInput(searchValue);
   };
 
-  const test = () => {
-    console.log("hi");
-  };
-
   const fetchmanga = async () => {
     try {
       const resp = await Axios.get(
-        `https://api.jikan.moe/v4/manga?q=${searchInput}&sfw`
+        `https://api.jikan.moe/v4/manga?q=${searchInput}&sfw=Y`
       );
       console.log(resp);
       setMangaList(resp.data.data);
@@ -60,12 +57,12 @@ function Body() {
 
   return (
     <div className="main">
-      <div class="topnav">
-        <a class="active" href="#logo">
+      <div className="topnav">
+        <a className="active" href="#logo">
           Logo
         </a>
         <h1 className="title">App Title</h1>
-        <div class="search-container">
+        <div className="search-container">
           <div>
             <input
               type="text"
@@ -75,7 +72,9 @@ function Body() {
             >
               {/* search function  */}
             </input>
-            <button onClick={fetchmanga}>Submit</button>
+            <button onClick={fetchmanga} onKeyDown>
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -93,7 +92,11 @@ function Body() {
         <button
           className="next-button"
           onClick={() => {
-            setCurrentPage(currentPage + 1);
+            if (currentPage !== last_visible_page) {
+              setCurrentPage(currentPage + 1);
+            } else {
+              alert("This is the last page!");
+            }
           }}
         >
           {" "}
