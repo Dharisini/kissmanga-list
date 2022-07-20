@@ -40,12 +40,12 @@ function Body() {
     navigate(`/manga/${id}`);
   });
   return (
-    <div>
+    <div className="main">
       <div class="topnav">
         <a class="active" href="#logo">
           Logo
         </a>
-        <h1>App Title</h1>
+        <h1 className="title">App Title</h1>
         <div class="search-container">
           <form action="/action_page.php">
             <input type="text" placeholder="Search.." name="search"></input>
