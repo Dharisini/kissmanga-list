@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
+import "./page.css";
 
 function Page() {
   const navigate = useNavigate();
@@ -49,17 +50,40 @@ function Page() {
   }, [id]);
 
   return (
-    //added
-    <div>
-      <button onClick={() => navigate("/")}>back</button>
-      <img src={profile.images?.jpg.image_url}></img>
-      <h1>
-        {profile.title_japanese} ({profile.title})
-      </h1>
-      <p>Score: {profile.score}/10</p>
-      <p>Running from: {profile.published?.string}</p>
-      <p>Summary: {profile.synopsis}</p>
-      <p>More Info: {more_info.moreinfo}</p>
+    //added <button onClick={() => navigate("/")}>back</button>
+    <div className="full">
+      <div className="header">
+        <button className="back" onClick={() => navigate("/")}>
+          BACK
+        </button>
+        <div className="flex-center h-90">
+          <h1>Manga Profile</h1>
+        </div>
+      </div>
+      <h1 className="flex-center"></h1>
+
+      <div className="two-cols">
+        <left className="flex-center left-col">
+          <img src={profile.images?.jpg.image_url}></img>
+        </left>
+        <right className="flex-center right-col">
+          <div>
+            {/* <h1>Information</h1> */}
+            <h1>
+              {profile.title_japanese} ({profile.title})
+            </h1>
+            <ul>
+              <li>Score:{profile.score}/10</li>
+
+              <li>Running from: {profile.published?.string}</li>
+
+              <li>Summary: {profile.synopsis}</li>
+
+              <li>More Info: {more_info.moreinfo}</li>
+            </ul>
+          </div>
+        </right>
+      </div>
     </div>
   );
 }
