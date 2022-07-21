@@ -26,6 +26,7 @@ function Body() {
       const resp = await Axios.get("https://api.jikan.moe/v4/manga", {
         params: { page: currentPage, q: searchInput },
       });
+      setCurrentPage(resp.data.pagination.current_page);
       setMangaList(resp.data.data);
       setLastVisiblePage(resp.data.pagination.last_visible_page);
     } catch (err) {
@@ -39,6 +40,11 @@ function Body() {
     setSearchInput(searchValue);
   };
 
+  // this handles calling out specific page
+  const searchPage = (searchValue) => {
+    setCurrentPage(searchValue);
+  };
+
   const fetchmanga = async () => {
     try {
       const resp = await Axios.get(
@@ -46,6 +52,8 @@ function Body() {
       );
       console.log(resp);
       setMangaList(resp.data.data);
+      setCurrentPage(resp.data.pagination.current_page);
+      setLastVisiblePage(resp.data.pagination.last_visible_page);
       //   console.log(mangaList);
     } catch (err) {
       // Handle Error Here
@@ -89,6 +97,17 @@ function Body() {
           {" "}
           Previous Page
         </button>
+        <div className="page-by-number">
+          <h3>Page Number:</h3>
+          <input
+            className="number-box"
+            type="number"
+            placeholder="Page #"
+            name="page-skip"
+            onChange={(e) => searchPage(e.target.value)}
+          ></input>
+          <h3>/{last_visible_page}</h3>
+        </div>
         <button
           className="next-button"
           onClick={() => {
