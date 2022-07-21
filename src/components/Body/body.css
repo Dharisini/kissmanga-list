@@ -2,6 +2,7 @@
   align-content: center;
   align-items: center;
   text-align: center;
+  background-color: #282828;
 }
 
 .manga-card {
@@ -13,29 +14,33 @@
   height: 300px;
   position: relative;
   object-fit: contain;
+  border-radius: 30px;
+  transition: 0.5s ease-in-out;
 }
 
 .manga-card-poster {
   object-fit: contain;
   overflow: hidden;
   width: 100%;
+  border-radius: 30px;
 }
 .manga-card:hover {
   transform: scale(1.1, 1.1);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(76, 161, 27, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgb(50, 50, 93) 0px 50px 100px -20px,
+    rgb(76, 161, 27) 0px 30px 60px -30px, rgb(10, 37, 64) 0px -2px 6px 0px inset;
 }
 
-.manga-card:hover .manga-card-synopsis {
-  display: flex;
-  flex-direction: column;
+.manga-card:hover > .manga-card-synopsis {
+  visibility: visible;
+  opacity: 0.9;
 }
 
 .manga-card-synopsis {
   /* above means it places it over the card */
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  display: none;
+  visibility: hidden;
   height: 100%;
   width: 100%;
   background-color: #222;
@@ -43,35 +48,120 @@
   font-size: 15px;
   text-align: left;
   padding: 10px;
-  opacity: 90%;
+  opacity: 0;
+  border-radius: 30px;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
 .navigation-buttons {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  margin: 20px;
   margin: 0 5%;
+  padding-top: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
+.next-button,
 .previous-button {
-  width: 100px;
-  font-size: 20px;
-  font-family: "Edu QLD Beginner", cursive;
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1a1a1a;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 20px;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform;
 }
 
-.next-button {
-  width: 100px;
-  font-size: 20px;
-  font-family: "Edu QLD Beginner", cursive;
+.next-button:disabled,
+.previous-button:disabled {
+  pointer-events: none;
+}
+
+.next-button:hover,
+.previous-button:hover {
+  box-shadow: rgb(255, 255, 255) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.next-button:active,
+.previous-button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.page-by-number {
+  color: white;
 }
 
 .topnav {
-  overflow: hidden;
-  background-color: #e9e9e9;
-  margin-bottom: 30px;
+  background: url("./anime.jpg");
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(anime.jpg);
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.topnav a {
+.search-container {
+  display: flex;
+  margin: 10px 20px;
+}
+.search-container-wrapper {
+  display: flex;
+
+  height: 40px;
+  background-color: white;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.search-container-wrapper > input {
+  font-size: 17px;
+  border: none;
+  margin: 10px;
+}
+
+.search-container-wrapper > input:focus {
+  outline: none;
+}
+
+.search-icon {
+  font-size: 17px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 5px;
+  transition: 1s ease-in-out;
+}
+
+.search-icon:hover {
+  background-color: rgb(216, 212, 212);
+}
+
+/* .topnav a {
   float: left;
   display: block;
   color: black;
@@ -80,26 +170,18 @@
   text-decoration: none;
   font-size: 17px;
 }
-
 .topnav a:hover {
   background-color: #ddd;
   color: black;
 }
-
 .topnav a.active {
   background-color: #2196f3;
   color: white;
 }
 
-.topnav .search-container {
-  float: right;
-}
 
 .topnav input[type="text"] {
-  padding: 6px;
-  margin-top: 8px;
-  font-size: 17px;
-  border: none;
+ 
 }
 
 .topnav .search-container button {
@@ -115,6 +197,13 @@
 
 .topnav .search-container button:hover {
   background: #ccc;
+} */
+
+#search {
+  display: flex;
+  align-items: stretch;
+  margin-right: 40px;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 600px) {
@@ -138,16 +227,16 @@
 
 .title {
   text-align: center;
+  color: #ccc;
+  /* padding-top: 100px; */
 }
 
-.page-by-number {
+.logo {
   display: flex;
-  flex-direction: row;
-}
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
 
-.number-box {
-  display: flex;
-  height: 50px;
-  width: 50px;
-  margin: 0 10px 0 10px;
+  height: auto;
 }

@@ -1,10 +1,11 @@
+import { findByLabelText } from "@testing-library/react";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-
 import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
 
-import Featured from "../Featured/Featured";
+import logo from "./kiss.png";
+import SearchIcon from "@mui/icons-material/Search";
 
 function Body() {
   // current page
@@ -72,26 +73,25 @@ function Body() {
   return (
     <div className="main">
       <div className="topnav">
-        <a className="active" href="#logo">
-          Logo
-        </a>
-        <h1 className="title">App Title</h1>
+        <div className="logo">
+          <img cl src={logo} />
+        </div>
+
         <div className="search-container">
-          <div>
+          <div className="search-container-wrapper">
             <input
               type="text"
-              placeholder="Search.."
               name="search"
               onChange={(e) => searchItems(e.target.value)}
             >
               {/* search function  */}
             </input>
-            <button onClick={fetchmanga}>Submit</button>
+            <SearchIcon className="search-icon" onClick={fetchmanga} />
           </div>
         </div>
       </div>
 
-      <Featured />
+      {/* <Featured /> */}
 
       <div className="navigation-buttons">
         <button
@@ -104,16 +104,13 @@ function Body() {
           Previous Page
         </button>
         <div className="page-by-number">
-          <h3>Page Number:</h3>
-          <input
-            className="number-box"
-            type="number"
-            placeholder="Page #"
-            name="page-skip"
-            // search
-            onChange={(e) => searchPage(e.target.value)}
-          ></input>
-          <h3>/{last_visible_page}</h3>
+          <h3>
+            Page {currentPage} <br />
+            of
+            <br />
+            {last_visible_page}
+          </h3>
+          <h3></h3>
         </div>
         <button
           className="next-button"
@@ -125,7 +122,6 @@ function Body() {
             }
           }}
         >
-          {" "}
           Next Page
         </button>
       </div>
@@ -142,8 +138,11 @@ function Body() {
               onClick={() => goToPage(manga.mal_id)}
             >
               {/* cuts at 300 characters */}
-              <h1>{manga.title?.substring(0, 50)}</h1>
-              <p>{manga.synopsis?.substring(0, 300)} ...</p>
+              <h3>{manga.title?.substring(0, 50)}</h3>
+              <p>
+                {manga.synopsis?.substring(0, 250)}
+                {manga.synopsis?.length >= 250 ? "..." : ""}
+              </p>
             </div>
           </div>
         );
