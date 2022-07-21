@@ -58,6 +58,7 @@ export default function Page() {
 
   return (
     <div>
+      <button>back</button>
       <img src={profile.images?.jpg.image_url}></img>
       <h1>
         {profile.title_japanese} ({profile.title})
