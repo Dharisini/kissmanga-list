@@ -1,15 +1,12 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useStores } from "../../stores";
-import { observer } from "mobx-react-lite";
+
 import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
 
+import Featured from "../Featured/Featured";
+
 function Body() {
-  const { page_store } = useStores();
-  // debugger;
-  const test = page_store.previousPage;
-  const value = page_store.searchValue;
   // current page
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
@@ -18,7 +15,7 @@ function Body() {
 
   const navigate = useNavigate();
 
-  //search input stuff
+  //this to get search input
   const [searchInput, setSearchInput] = useState("");
 
   //render the search query everytime the state changes
@@ -46,11 +43,9 @@ function Body() {
     setSearchInput(searchValue);
   };
 
-  // this handles calling out specific page isaiah's messsssssssssssssssssssssssssssss
+  // this handles calling out specific page
   const searchPage = (searchValue) => {
     setCurrentPage(searchValue);
-
-    console.log("searchValue", searchValue);
   };
 
   const fetchmanga = async () => {
@@ -60,10 +55,10 @@ function Body() {
       );
       console.log(resp);
       setMangaList(resp.data.data);
-
-      setCurrentPage(resp.data.pagination.current_page);
-      setLastVisiblePage(resp.data.pagination.last_visible_page);
-      //   console.log(mangaList);
+      // // adding page scroller
+      // setCurrentPage(resp.data.pagination.current_page);
+      // setLastVisiblePage(resp.data.pagination.last_visible_page);
+      // //   console.log(mangaList);
     } catch (err) {
       // Handle Error Here
       console.error(err);
@@ -71,14 +66,6 @@ function Body() {
   };
 
   const goToPage = React.useCallback((id) => {
-    page_store.setPreviousPage(currentPage.toString());
-    page_store.setSearchValue(searchInput);
-
-    // console.log("currentPage", currentPage);
-    // console.log("searchInput", searchInput);
-
-    // console.log("page_store.previousPage", page_store.previousPage);
-    // console.log("page_store.searchValue", page_store.searchValue);
     navigate(`/manga/${id}`);
   });
 
@@ -104,6 +91,8 @@ function Body() {
         </div>
       </div>
 
+      <Featured />
+
       <div className="navigation-buttons">
         <button
           className="previous-button"
@@ -121,6 +110,7 @@ function Body() {
             type="number"
             placeholder="Page #"
             name="page-skip"
+            // search
             onChange={(e) => searchPage(e.target.value)}
           ></input>
           <h3>/{last_visible_page}</h3>
@@ -140,18 +130,26 @@ function Body() {
         </button>
       </div>
 
-      {mangaList.map((manga, index) => {
+      {mangaList.map((manga) => {
         return (
-          <img
-            className="style"
-            onClick={() => goToPage(manga.mal_id)}
-            key={index}
-            src={manga.images.jpg.image_url}
-          />
+          <div className="manga-card" key={manga.mal_id}>
+            <img
+              src={manga.images.jpg.image_url}
+              className="manga-card-poster"
+            />
+            <div
+              className="manga-card-synopsis"
+              onClick={() => goToPage(manga.mal_id)}
+            >
+              {/* cuts at 300 characters */}
+              <h1>{manga.title?.substring(0, 50)}</h1>
+              <p>{manga.synopsis?.substring(0, 300)} ...</p>
+            </div>
+          </div>
         );
       })}
     </div>
   );
 }
 
-export default observer(Body);
+export default Body;
