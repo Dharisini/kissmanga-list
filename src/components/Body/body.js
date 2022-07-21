@@ -1,9 +1,15 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useStores } from "../../stores";
+import { observer } from "mobx-react-lite";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
 
 function Body() {
+  const { page_store } = useStores();
+  // debugger;
+  const test = page_store.previousPage;
+  const value = page_store.searchValue;
   // current page
   const [currentPage, setCurrentPage] = useState(1);
   // getting the whole 25 mangas
@@ -15,9 +21,11 @@ function Body() {
   //search input stuff
   const [searchInput, setSearchInput] = useState("");
 
+  //render the search query everytime the state changes
   useEffect(() => {
     getMangas();
   }, [currentPage]);
+
   //resp is response
   const getMangas = async () => {
     try {
@@ -33,14 +41,16 @@ function Body() {
     }
   };
 
-  //this handles the search functionality
+  //this handles the SEARCH MANGA functionality
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
   };
 
-  // this handles calling out specific page
+  // this handles calling out specific page isaiah's messsssssssssssssssssssssssssssss
   const searchPage = (searchValue) => {
     setCurrentPage(searchValue);
+
+    console.log("searchValue", searchValue);
   };
 
   const fetchmanga = async () => {
@@ -50,6 +60,7 @@ function Body() {
       );
       console.log(resp);
       setMangaList(resp.data.data);
+
       setCurrentPage(resp.data.pagination.current_page);
       setLastVisiblePage(resp.data.pagination.last_visible_page);
       //   console.log(mangaList);
@@ -60,6 +71,14 @@ function Body() {
   };
 
   const goToPage = React.useCallback((id) => {
+    page_store.setPreviousPage(currentPage.toString());
+    page_store.setSearchValue(searchInput);
+
+    // console.log("currentPage", currentPage);
+    // console.log("searchInput", searchInput);
+
+    // console.log("page_store.previousPage", page_store.previousPage);
+    // console.log("page_store.searchValue", page_store.searchValue);
     navigate(`/manga/${id}`);
   });
 
@@ -135,4 +154,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default observer(Body);

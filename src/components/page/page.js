@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useStores } from "../../stores";
 
-export default function Page() {
+function Page() {
+  const navigate = useNavigate();
+  const { page_store } = useStores();
   const { id } = useParams();
   //   console.log(`shit=${id}`);
   //get profile info
@@ -30,6 +34,8 @@ export default function Page() {
   useEffect(() => {
     //resp is response
 
+    console.log("page_store.previousPage", page_store.previousPage);
+    console.log("page_store.searchValue", page_store.searchValue);
     const getMoreInfo = () => {
       try {
         Axios.get(`https://api.jikan.moe/v4/manga/${id}/moreinfo`).then(
@@ -46,18 +52,10 @@ export default function Page() {
     getMoreInfo();
   }, [id]);
 
-  console.log(more_info);
-  console.log(profile);
-  console.log(profile.published);
-
-  // function extractContent(s) {
-  //   var span = document.createElement("span");
-  //   span.innerHTML = s;
-  //   return span.textContent || span.innerText;
-  // }
-
   return (
+    //added
     <div>
+      <button onClick={() => navigate("/")}>back</button>
       <img src={profile.images?.jpg.image_url}></img>
       <h1>
         {profile.title_japanese} ({profile.title})
@@ -69,3 +67,4 @@ export default function Page() {
     </div>
   );
 }
+export default observer(Page);
