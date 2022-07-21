@@ -112,3 +112,15 @@
 .title {
   text-align: center;
 }
+
+.page-by-number {
+  display: flex;
+  flex-direction: row;
+}
+
+.number-box {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  margin: 0 10px 0 10px;
+}
