@@ -1,6 +1,6 @@
 import Axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
 
 function Body() {
@@ -12,16 +12,13 @@ function Body() {
 
   const navigate = useNavigate();
 
-  const { searchTitle } = useParams();
+  //search input stuff
+  const [searchInput, setSearchInput] = useState("");
 
+  //render the search query everytime the state changes
   useEffect(() => {
-    setMangaList([]);
-    if (!searchTitle) {
-      getMangas();
-    } else {
-      fetchmanga();
-    }
-  }, [currentPage, searchTitle]);
+    getMangas();
+  }, [currentPage]);
 
   //resp is response
   const getMangas = async () => {
@@ -60,11 +57,6 @@ function Body() {
     navigate(`/manga/${id}`);
   });
 
-  const goSearch = () => {
-    if (!ref.current?.value) return;
-    navigate(`/search/${ref.current.value}`);
-  };
-
   return (
     <div className="main">
       <div className="topnav">
@@ -74,12 +66,15 @@ function Body() {
         <h1 className="title">App Title</h1>
         <div className="search-container">
           <div>
-            <input type="text" placeholder="Search.." name="search" ref={ref}>
+            <input
+              type="text"
+              placeholder="Search.."
+              name="search"
+              onChange={(e) => searchItems(e.target.value)}
+            >
               {/* search function  */}
             </input>
-            <button onClick={fetchmanga} onKeyDown>
-              Submit
-            </button>
+            <button onClick={fetchmanga}>Submit</button>
           </div>
         </div>
       </div>
