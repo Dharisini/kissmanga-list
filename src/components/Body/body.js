@@ -109,6 +109,7 @@ function Body() {
           className="previous-button"
           onClick={() => {
             setCurrentPage(currentPage - 1);
+            //TODO: set number in the box === currentPage
           }}
         >
           {" "}
@@ -116,13 +117,23 @@ function Body() {
         </button>
         <div className="page-by-number">
           <h3>Page Number:</h3>
-          <input
-            className="number-box"
-            type="number"
-            placeholder="Page #"
-            name="page-skip"
-            onChange={(e) => searchPage(e.target.value)}
-          ></input>
+          <form>
+            <input
+              className="number-box"
+              type="number"
+              placeholder="Page #"
+              name="page-skip"
+              onChange={(e) => {
+                if (e.target.value < last_visible_page) {
+                  searchPage(e.target.value);
+                  console.log(e.target.value);
+                } else {
+                  searchPage(last_visible_page);
+                  //TODO: set self.value === last_visible_page
+                }
+              }}
+            />
+          </form>
           <h3>/{last_visible_page}</h3>
         </div>
         <button
@@ -130,6 +141,7 @@ function Body() {
           onClick={() => {
             if (currentPage !== last_visible_page) {
               setCurrentPage(currentPage + 1);
+              //TODO: set number in the box = currentPage
             } else {
               alert("This is the last page!");
             }
