@@ -2,9 +2,12 @@
   align-content: center;
   align-items: center;
   text-align: center;
+  background-color: black;
 }
 
 .style {
+  /* margin-right: 20px;
+  margin-bottom: 20px; */
   margin: 50px;
   display: inline-flex;
   flex-direction: row;
@@ -16,32 +19,74 @@
 .style:hover {
   transform: scale(1.1, 1.1);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(76, 161, 27, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    rgba(189, 219, 16, 0.836) 0px 30px 60px -30px,
+    rgba(109, 134, 15, 0.89) 0px -2px 6px 0px inset;
 }
-
 .navigation-buttons {
+  position: relative;
   display: flex;
+  margin: 20px;
   justify-content: space-between;
   margin: 0 5%;
+  padding-top: 20px;
 }
 
+.next-button,
 .previous-button {
-  width: 100px;
-  font-size: 20px;
-  font-family: "Edu QLD Beginner", cursive;
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1a1a1a;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform;
 }
 
-.next-button {
-  width: 100px;
-  font-size: 20px;
-  font-family: "Edu QLD Beginner", cursive;
+.next-button:disabled,
+.previous-button:disabled {
+  pointer-events: none;
+}
+
+.next-button:hover,
+.previous-button:hover {
+  box-shadow: rgba(206, 78, 78, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.next-button:active,
+.previous-button:active {
+  box-shadow: none;
+  transform: translateY(0);
 }
 
 .topnav {
   overflow: hidden;
-  background-color: #e9e9e9;
-  margin-bottom: 30px;
+  background: url("./anime.jpg");
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url(anime.jpg);
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .topnav a {
@@ -70,7 +115,7 @@
 
 .topnav input[type="text"] {
   padding: 6px;
-  margin-top: 8px;
+  /* margin-top: 8px; */
   font-size: 17px;
   border: none;
 }
@@ -89,7 +134,12 @@
 .topnav .search-container button:hover {
   background: #ccc;
 }
-
+#search {
+  display: flex;
+  align-items: stretch;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
 @media screen and (max-width: 600px) {
   .topnav .search-container {
     float: none;
@@ -111,4 +161,12 @@
 
 .title {
   text-align: center;
+  color: #ccc;
+  /* padding-top: 100px; */
+}
+
+.logo {
+  width: 200px;
+  margin-top: 30px;
+  height: auto;
 }

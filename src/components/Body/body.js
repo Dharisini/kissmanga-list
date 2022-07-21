@@ -1,8 +1,9 @@
+import { findByLabelText } from "@testing-library/react";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./body.css";
-
+import logo from "./kiss.png";
 function Body() {
   // current page
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,50 +43,52 @@ function Body() {
   return (
     <div className="main">
       <div class="topnav">
-        <a class="active" href="#logo">
-          Logo
-        </a>
-        <h1 className="title">App Title</h1>
-        <div class="search-container">
-          <form action="/action_page.php">
+        <split1>
+          <img className="logo" src={logo} />
+          <h1 className="title">Kiss Manga List</h1>
+        </split1>
+        <split2 style={{ display: "flex", justifyContent: "space-between" }}>
+          <div></div>
+          <div id="search">
             <input type="text" placeholder="Search.." name="search"></input>
             <button type="submit">Submit</button>
-          </form>
+          </div>
+        </split2>
+      </div>
+      <div className="main-container">
+        <div className="navigation-buttons">
+          <button
+            className="previous-button"
+            onClick={() => {
+              setCurrentPage(currentPage - 1);
+            }}
+          >
+            {" "}
+            Previous Page
+          </button>
+          <button
+            className="next-button"
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+            }}
+          >
+            {" "}
+            Next Page
+          </button>
         </div>
-      </div>
 
-      <div className="navigation-buttons">
-        <button
-          className="previous-button"
-          onClick={() => {
-            setCurrentPage(currentPage - 1);
-          }}
-        >
-          {" "}
-          Previous Page
-        </button>
-        <button
-          className="next-button"
-          onClick={() => {
-            setCurrentPage(currentPage + 1);
-          }}
-        >
-          {" "}
-          Next Page
-        </button>
+        {mangaList.map((manga, index) => {
+          return (
+            <img
+              className="style"
+              onClick={() => goToPage(manga.mal_id)}
+              key={index}
+              src={manga.images.jpg.image_url}
+            />
+          );
+          //pass the id of the image to the data.data.mal_id
+        })}
       </div>
-
-      {mangaList.map((manga, index) => {
-        return (
-          <img
-            className="style"
-            onClick={() => goToPage(manga.mal_id)}
-            key={index}
-            src={manga.images.jpg.image_url}
-          />
-        );
-        //pass the id of the image to the data.data.mal_id
-      })}
     </div>
   );
 }
