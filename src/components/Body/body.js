@@ -74,11 +74,11 @@ function Body() {
     page_store.setPreviousPage(currentPage.toString());
     page_store.setSearchValue(searchInput);
 
-    // console.log("currentPage", currentPage);
-    // console.log("searchInput", searchInput);
+    console.log("currentPage", currentPage);
+    console.log("searchInput", searchInput);
 
-    // console.log("page_store.previousPage", page_store.previousPage);
-    // console.log("page_store.searchValue", page_store.searchValue);
+    console.log("page_store.previousPage", page_store.previousPage);
+    console.log("page_store.searchValue", page_store.searchValue);
     navigate(`/manga/${id}`);
   });
 

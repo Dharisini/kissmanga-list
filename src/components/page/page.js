@@ -33,7 +33,6 @@ function Page() {
 
   useEffect(() => {
     //resp is response
-
     console.log("page_store.previousPage", page_store.previousPage);
     console.log("page_store.searchValue", page_store.searchValue);
     const getMoreInfo = () => {
@@ -55,7 +54,7 @@ function Page() {
   return (
     //added
     <div>
-      <button onClick={() => navigate("/")}>back</button>
+      <button onClick={() => navigate(-1)}>back</button>
       <img src={profile.images?.jpg.image_url}></img>
       <h1>
         {profile.title_japanese} ({profile.title})
